@@ -1,0 +1,6 @@
+spring:
+	datasource:
+		driver-class-name: oracle.postgresql.Driver
+		url: jdbc:postgresql://34.125.28.230:5432/test # GCP 외부 IP
+		username: test # DB 계정
+		password: 296296 # DB 비밀번호

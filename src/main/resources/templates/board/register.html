@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>사용자 등록</title>
 </head>
 <body>
-
+    <form action="#" th:action="@{/user/register}" method="post">
+        <label>ID:</label><input type="text" name="empNo"/><br/>
+        <label>사원명:</label><input type="text" name="empNm"/><br/>
+        <label>이메일:</label><input type="text" name="eml"/><br/>
+        <input type="submit" value="등록"/>
+    </form>
 </body>
 </html>

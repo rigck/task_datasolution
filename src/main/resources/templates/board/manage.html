@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>사용자 관리 화면</title>
 </head>
 <body>
+    <form action="#" th:action="@{/user/search}" method="get">
+        <label>이름:</label><input type="text" name="empNm"/>
+        <input type="submit" value="검색"/>
+    </form>
 
-</body>
-</html>
+    <div style="display: flex;">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>사원명</th>
+                        <th>부서</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.empNo}"></td>
+                        <td th:text="${user.empNm}"></td>
+                        <td th:text="${user.dept}"></td>
+                        <td th:text="${user.aprv}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <form th:if="${selectedUser != null}" action="#" th:action="@{/user/edit}" method="post">
+                <input type="hidden" name="empNo" th:value="${selectedUser.empNo}"/>
+                <label>사원명:</label><input type="text" name="empNm" th:value="${selectedUser.empNm}"/><br/>
+                <label>이메일:</label><input type="text" name="eml" th:value="${selectedUser.eml}"/><br/>
+                <label>부서:</label>
+                <select name="dept" th:value="${selectedUser.dept}">
+                    <option value="인사과" th:selected="${selectedUser.dept == '인사과'}">인사과</option>
+                    <option value="정보과" th:selected="${selectedUser.dept == '정보과'}">정보과</option>
+                    <option value="작전과" th:selected="${selectedUser.dept == '작전과'}">작전과</option>
+                    <option value="본부과" th:selected="${selectedUser.dept == '본부과'}">본부과</option>
+                    <option value="통신과" th:selected="${selectedUser.dept == '통신과'}">통신과</option>
+                </select><br/>
+                <label>전화번호:</label><input type="text" name="telNo" th:value="${selectedUser.telNo}"/><br/>
+                <label>주소:</label><input type="text" name="address" th:value="${selectedUser.address}"/><br/>
+                <label>취미:</label><br/>
+				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('등산')}"/> 등산<br/>
+				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('게임')}"/> 게임<br/>
+				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('야구')}"/> 야구<br/>
+				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('클라이밍 ')}"/> 클라이밍<br/>
+				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('자전거 ')}"/> 자전거<br/>
+        </div>

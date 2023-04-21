@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mapper.BoardMapper">
-    <insert id="insertBoard" parameterType="domain.BoardDTO">
+<mapper namespace="mapper.BoardMapper">
+    <insert id="registerUser" parameterType="domain.BoardDTO">
         INSERT INTO board (EMP_NO, EMP_NM, EML, TELNO, ADDRESS, APRV, DEPT_ID, DEPT, HBY, HBY_ID)
         VALUES (#{EMP_NO}, #{EMP_NM}, #{EML}, #{TELNO}, #{ADDRESS}, #{APRV}, #{DEPT_ID}, #{DEPT}, #{HBY}, #{HBY_ID})
     </insert>
 
-    <select id="searchBoard" parameterType="String" resultType="domain.BoardDTO">
+    <select id="getUserList" parameterType="String" resultType="domain.BoardDTO">
         SELECT EMP_NO, EMP_NM, DEPT, APRV FROM board
         WHERE EMP_NM LIKE '%'||#{value}||'%'
     </select>
 
-    <select id="getBoardDetail" parameterType="String" resultType="domain.BoardDTO">
+    <select id="getUserInfo" parameterType="String" resultType="domain.BoardDTO">
         SELECT EMP_NO, EMP_NM, EML, TELNO, ADDRESS, APRV, DEPT, HBY FROM board
         WHERE EMP_NO = #{value}
     </select>

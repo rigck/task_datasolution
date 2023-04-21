@@ -2,55 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>사용자 관리 화면</title>
+    <title>Manage</title>
 </head>
 <body>
-    <form action="#" th:action="@{/user/search}" method="get">
-        <label>이름:</label><input type="text" name="empNm"/>
-        <input type="submit" value="검색"/>
+    <!-- 창 1 : 검색창 -->
+    <h2>사원 검색</h2>
+    <form action="#" th:action="@{/search}" type="post">
+        <label for="name">사원 이름 :</label>
+        <input type="text" name="empNm" id="EmpNm" required>
+        <input type="submit" value="검색">
     </form>
 
-    <div style="display: flex;">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>사원명</th>
-                        <th>부서</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.empNo}"></td>
-                        <td th:text="${user.empNm}"></td>
-                        <td th:text="${user.dept}"></td>
-                        <td th:text="${user.aprv}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- 창 2 : 승인요청 목록 -->
+    <h2>승인요청 목록</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>사원 이름</th>
+            <th>부서</th>
+            <th>승인 여부</th>
+            <th>승인 처리</th>
+        </tr>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.EMP_NO}"></td>
+            <td th:text="${user.EMP_NM}"></td>
+            <td th:text="${user.DEPT}"></td>
+            <td th:text="${user.APRV}"></td>
+            <td>
+                <form action="#" th:action="@{/update}" type="post">
+                    <input type="hidden" name="EMP_NO" th:value="${user.EMP_NO}">
+                    <input type="hidden" name="EMP_NM" th:value="${user.EMP_NM}">
+                    <input type="hidden" name="DEPT_ID" th:value="${user.DEPT_ID}">
+                    <input type="hidden" name="DEPT" th:value="${user.DEPT}">
+                    <input type="hidden" name="APRV" value="Y">
+                    <input type="submit" value="승인">
+                </form>
+            </td>
+        </tr>
+    </table>
 
-        <div>
-            <form th:if="${selectedUser != null}" action="#" th:action="@{/user/edit}" method="post">
-                <input type="hidden" name="empNo" th:value="${selectedUser.empNo}"/>
-                <label>사원명:</label><input type="text" name="empNm" th:value="${selectedUser.empNm}"/><br/>
-                <label>이메일:</label><input type="text" name="eml" th:value="${selectedUser.eml}"/><br/>
-                <label>부서:</label>
-                <select name="dept" th:value="${selectedUser.dept}">
-                    <option value="인사과" th:selected="${selectedUser.dept == '인사과'}">인사과</option>
-                    <option value="정보과" th:selected="${selectedUser.dept == '정보과'}">정보과</option>
-                    <option value="작전과" th:selected="${selectedUser.dept == '작전과'}">작전과</option>
-                    <option value="본부과" th:selected="${selectedUser.dept == '본부과'}">본부과</option>
-                    <option value="통신과" th:selected="${selectedUser.dept == '통신과'}">통신과</option>
-                </select><br/>
-                <label>전화번호:</label><input type="text" name="telNo" th:value="${selectedUser.telNo}"/><br/>
-                <label>주소:</label><input type="text" name="address" th:value="${selectedUser.address}"/><br/>
-                <label>취미:</label><br/>
-				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('등산')}"/> 등산<br/>
-				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('게임')}"/> 게임<br/>
-				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('야구')}"/> 야구<br/>
-				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('클라이밍 ')}"/> 클라이밍<br/>
-				<input type="checkbox" name="hby" value="등산" th:checked="${selectedUser.hby.contains('자전거 ')}"/> 자전거<br/>
-        </div>
+    <!-- 창 3 : 사용자 정보 수정 -->
+    <h2>사원 정보 수정</h2>
+    <form action="#" th:action="@{/update}" type="post">
+        <label for="emp_No">사원번호 :</label>
+        <input type="text" name="EMP_NO" id="empNo" th:value="${userInfo.EMP_NO}" readonly required><br>
+        <label for="emp_Nm">사원이름 :</label>
+        <input type="text" name="EMP_NM" id="empNm" th:value="${userInfo.EMP_NM}" required><br>
+        <label for="eml">이메일 :</label>
+        <input type="email" name="EML" id="email" th:value="${userInfo.EML}" required><br>
+        <label for="dept">부서 :</label>
+        <select name="DEPT_ID" id="dept" required>
+            <option th:value="${userInfo.DEPT_ID}" th:selected="${userInfo.DEPT_ID == '부서1'}">부서1</option>
+            <option th:value="${userInfo.DEPT_ID}" th:selected="${userInfo.DEPT_ID == '부서2'}">부서2</option>
+            <option th:value="${userInfo.DEPT_ID}" th:selected="${userInfo.DEPT_ID == '부서3'}">부서3</option>
+        </select><br>
+        <label for="telno">전화번호 :</label>
+       <input type="tel" name="TEL_NO" id="telno" th:value="${userInfo.TEL_NO}" required><br>
+<label for="address">주소 :</label>
+<input type="text" name="ADDR" id="address" th:value="${userInfo.ADDR}" required><br>
+<input type="submit" value="수정">
+</form>
+
+</body>
+</html>

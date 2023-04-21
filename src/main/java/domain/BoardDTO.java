@@ -1,11 +1,21 @@
 package domain;
 
+import org.springframework.data.annotation.Id;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
+@Data
 public class BoardDTO {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String EMP_NO;		// 사원번호
 	private String EMP_NM;		// 사원이름
 	private String EML;			// 이메일

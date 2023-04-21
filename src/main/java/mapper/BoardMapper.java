@@ -1,11 +1,16 @@
+package mapper;
+
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import domain.BoardDTO;
 
+@Mapper
 public interface BoardMapper {
-    public void insertUser(BoardDTO boardDTO);
-    public List<BoardDTO> selectUserList(String name);
-    public BoardDTO selectUserInfo(String empNo);
-    public void updateUser(BoardDTO boardDTO);
-    public void deleteUser(String empNo);
+    public void registerUser(BoardDTO boardDTO);
+    public List<BoardDTO> getUserList(String name);
+    public BoardDTO getUserInfo(String empNo);
+    public void updateBoard(BoardDTO boardDTO);
+    public void deleteBoard(String empNo);
 }

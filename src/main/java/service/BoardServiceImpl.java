@@ -1,3 +1,5 @@
+package service;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +15,26 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void registerUser(BoardDTO boardDTO) {
-        boardMapper.insertUser(boardDTO);
+        boardMapper.registerUser(boardDTO);
     }
 
     @Override
     public List<BoardDTO> getUserList(String name) {
-        return boardMapper.selectUserList(name);
+        return boardMapper.getUserList(name);
     }
 
     @Override
     public BoardDTO getUserInfo(String empNo) {
-        return boardMapper.selectUserInfo(empNo);
+        return boardMapper.getUserInfo(empNo);
     }
 
     @Override
-    public void updateUser(BoardDTO boardDTO) {
-        boardMapper.updateUser(boardDTO);
+    public void updateBoard(BoardDTO boardDTO) {
+        boardMapper.updateBoard(boardDTO);
     }
 
     @Override
-    public void deleteUser(String empNo) {
-        boardMapper.deleteUser(empNo);
+    public void deleteBoard(String empNo) {
+        boardMapper.deleteBoard(empNo);
     }
 }

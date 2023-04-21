@@ -2,14 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>사용자 등록</title>
+    <title>Register</title>
 </head>
 <body>
-    <form action="#" th:action="@{/user/register}" method="post">
-        <label>ID:</label><input type="text" name="empNo"/><br/>
-        <label>사원명:</label><input type="text" name="empNm"/><br/>
-        <label>이메일:</label><input type="text" name="eml"/><br/>
-        <input type="submit" value="등록"/>
-    </form>
+	<div class="layout">
+		<form action="/register" method="post">
+			<input name="EMP_NO" type="text">
+			<input name="EMP_NM" type="text">			
+			<input name="EMP_EML" type="text">			
+			<button type="submit">저장</button>
+		</form>
+    </div>
 </body>
 </html>
